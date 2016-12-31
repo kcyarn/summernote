@@ -121,7 +121,9 @@ module.exports = function (grunt) {
       },
       all: {
         files: [
-          { 'dist/summernote.min.js': ['dist/summernote.js'] },
+          { 'dist/bs3/summernote.min.js': ['dist/bs3/summernote.js'] },
+          { 'dist/bs4/summernote.min.js': ['dist/bs4/summernote.js'] },
+          { 'dist/lite/summernote.min.js': ['dist/lite/summernote.js'] },
           {
             expand: true,
             cwd: 'dist/lang',
@@ -146,15 +148,18 @@ module.exports = function (grunt) {
         options: { compile: true, compress: true },
         files: [
           {
-            'dist/summernote.css': ['src/less/summernote.less']
-          },
+            'dist/bs3/summernote.css': ['src/less/summernote.less'],
+			'dist/lite/summernote.css': ['src/less/summernote-lite.less']
+    },
+
+    // sass : compile scss to css
           {
             expand: true,
             cwd: 'dist/plugin',
             src: '**/*.css',
             dest: 'dist/plugin',
             ext: '.min.css'
-          }
+        }
         ]
       }
     },
@@ -270,13 +275,26 @@ module.exports = function (grunt) {
       }
     },
     webfont: {
-      icons: {
+      less: {
         src: 'src/icons/*.svg',
         dest: 'src/icons/dist/font',
         destCss: 'src/icons/dist/',
         options: {
           font: 'summernote',
-          template: 'src/icons/templates/summernote.css'
+          template: 'src/icons/templates/summernote.css',
+          stylesheet: 'less',
+          relativeFontPath: '../font'
+        }
+      },
+      scss: {
+        src: 'src/icons/*.svg',
+        dest: 'src/icons/dist/font',
+        destCss: 'src/icons/dist/',
+        options: {
+          font: 'summernote',
+          template: 'src/icons/templates/summernote.css',
+          stylesheet: 'scss',
+          relativeFontPath: '../font'
         }
       }
     }
@@ -288,7 +306,7 @@ module.exports = function (grunt) {
   // load all grunts/*.js
   grunt.loadTasks('grunts');
 
-  // server: run server for development
+  // server: runt server for development
   grunt.registerTask('server', ['connect', 'watch']);
 
   // lint

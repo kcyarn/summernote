@@ -19,7 +19,7 @@ define([
       if (!options.shortcuts || !shortcut) {
         return '';
       }
-      
+      var shortcut = invertedKeyMap[editorMethod];
       if (agent.isMac) {
         shortcut = shortcut.replace('CMD', '⌘').replace('SHIFT', '⇧');
       }
